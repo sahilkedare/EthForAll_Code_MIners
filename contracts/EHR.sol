@@ -124,20 +124,20 @@ contract EHR {
         existingHospitals[msg.sender] = true;
     }
 
-    function registerResearchOrg(
-        string memory name,
-        string memory emailId,
-        string memory mobileNo
-    ) public {
-        researchOrgMapping[researchOrgCount++] = ResearchOrg(
-            msg.sender,
-            name,
-            emailId,
-            mobileNo
-        );
-        researchOrgAddressMapping[msg.sender] = researchOrgCount - 1;
-        existingOrganizations[msg.sender] = true;
-    }
+    // function registerResearchOrg(
+    //     string memory name,
+    //     string memory emailId,
+    //     string memory mobileNo
+    // ) public {
+    //     researchOrgMapping[researchOrgCount++] = ResearchOrg(
+    //         msg.sender,
+    //         name,
+    //         emailId,
+    //         mobileNo
+    //     );
+    //     researchOrgAddressMapping[msg.sender] = researchOrgCount - 1;
+    //     existingOrganizations[msg.sender] = true;
+    // }
 
     function checkRole() public view returns (uint256) {
         if (existingUsers[msg.sender] == true) {
@@ -170,28 +170,28 @@ contract EHR {
         );
     }
 
-    function createNewResearch(
-        string memory name,
-        string memory description,
-        string memory cid,
-        string memory cidName,
-        uint256 usersRequired
-    ) public payable {
-        uint256 price = usersRequired * 0.0001 ether;
-        require(price == msg.value, "Please provide required ethers");
+    // function createNewResearch(
+    //     string memory name,
+    //     string memory description,
+    //     string memory cid,
+    //     string memory cidName,
+    //     uint256 usersRequired
+    // ) public payable {
+    //     uint256 price = usersRequired * 0.0001 ether;
+    //     require(price == msg.value, "Please provide required ethers");
 
-        researchMapping[researchCount] = Research(
-            researchCount,
-            msg.sender,
-            name,
-            description,
-            cid,
-            cidName,
-            usersRequired,
-            0
-        );
-        researchCount += 1;
-    }
+    //     researchMapping[researchCount] = Research(
+    //         researchCount,
+    //         msg.sender,
+    //         name,
+    //         description,
+    //         cid,
+    //         cidName,
+    //         usersRequired,
+    //         0
+    //     );
+    //     researchCount += 1;
+    // }
 
     // Access list for hospital
     function grantAccessToHospital(address hospitalAddress) public {
@@ -404,64 +404,64 @@ contract EHR {
     }
 
     // Research Organization Functions
-    function fetchUserDocumentsForResearch(
-        address userAddress,
-        uint256 researchId
-    ) public view returns (Record[] memory) {
-        require(
-            hasUserRecordAccessForResearch(userAddress, researchId) == true,
-            "Does not has the access to fetch the documents"
-        );
+    // function fetchUserDocumentsForResearch(
+    //     address userAddress,
+    //     uint256 researchId
+    // ) public view returns (Record[] memory) {
+    //     require(
+    //         hasUserRecordAccessForResearch(userAddress, researchId) == true,
+    //         "Does not has the access to fetch the documents"
+    //     );
 
-        uint256 itemCount;
-        for (uint256 i = 0; i < recordCount; i++) {
-            if (recordMapping[i].userAdd == userAddress) {
-                itemCount += 1;
-            }
-        }
+    //     uint256 itemCount;
+    //     for (uint256 i = 0; i < recordCount; i++) {
+    //         if (recordMapping[i].userAdd == userAddress) {
+    //             itemCount += 1;
+    //         }
+    //     }
 
-        Record[] memory items = new Record[](itemCount);
-        for (uint256 i = 0; i < recordCount; i++) {
-            if (recordMapping[i].userAdd == userAddress) {
-                uint256 currentId = i;
-                Record storage currentItem = recordMapping[currentId];
-                items[currentId] = currentItem;
-                currentId += 1;
-            }
-        }
-        return items;
-    }
+    //     Record[] memory items = new Record[](itemCount);
+    //     for (uint256 i = 0; i < recordCount; i++) {
+    //         if (recordMapping[i].userAdd == userAddress) {
+    //             uint256 currentId = i;
+    //             Record storage currentItem = recordMapping[currentId];
+    //             items[currentId] = currentItem;
+    //             currentId += 1;
+    //         }
+    //     }
+    //     return items;
+    // }
 
-    function fetchAllUsersForResearch(
-        uint256 researchId
-    ) public view returns (User[] memory) {
-        uint256 count;
-        for (uint256 i = 0; i < userCount; i++) {
-            for (uint256 j = 0; j < userToResearchAccessList[i].length; j++) {
-                if (userToResearchAccessList[i][j] == researchId) {
-                    count += 1;
-                    break;
-                }
-            }
-        }
+    // function fetchAllUsersForResearch(
+    //     uint256 researchId
+    // ) public view returns (User[] memory) {
+    //     uint256 count;
+    //     for (uint256 i = 0; i < userCount; i++) {
+    //         for (uint256 j = 0; j < userToResearchAccessList[i].length; j++) {
+    //             if (userToResearchAccessList[i][j] == researchId) {
+    //                 count += 1;
+    //                 break;
+    //             }
+    //         }
+    //     }
 
-        User[] memory result = new User[](count);
+    //     User[] memory result = new User[](count);
 
-        count = 0;
+    //     count = 0;
 
-        for (uint256 i = 0; i < userCount; i++) {
-            for (uint256 j = 0; j < userToResearchAccessList[i].length; j++) {
-                if (userToResearchAccessList[i][j] == researchId) {
-                    User storage currentUser = userMapping[i];
-                    result[count] = currentUser;
-                    count += 1;
-                    break;
-                }
-            }
-        }
+    //     for (uint256 i = 0; i < userCount; i++) {
+    //         for (uint256 j = 0; j < userToResearchAccessList[i].length; j++) {
+    //             if (userToResearchAccessList[i][j] == researchId) {
+    //                 User storage currentUser = userMapping[i];
+    //                 result[count] = currentUser;
+    //                 count += 1;
+    //                 break;
+    //             }
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
     function fetchMyResearchs() public view returns (Research[] memory) {
         uint256 count;

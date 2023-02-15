@@ -1,4 +1,4 @@
 import ehr from "./EHR.json";
 
-export const EHRAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const EHRAddress = "0xdBe551E4689c6F1a127Fe447170dbFAcB00fC2db";
 export const EHRABI = ehr.abi;
