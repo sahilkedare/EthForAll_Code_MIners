@@ -64,9 +64,3 @@ We are thinking of adding some new personas such as insurance agencies, governme
 -   [solidity](https://devpost.com/software/built-with/solidity)
 -   tailwind
 -   web3.storage
-
-## Contributers  👩‍💻
-- [Ankit Jaiswal](https://github.com/AnkitJaiswal26)
-- [Pranit Rohokale](https://github.com/PranitRohokale)
-- [Sahil Kedare](https://github.com/sahilkedare)
-- [Amey Mahajan](https://github.com/Amey112)
