@@ -9,7 +9,7 @@ export default function Header() {
         <Container>
             <div className="navigation" style={{ backgroundColor: 'white' }}>
                 <a href="/" className="brand-name">
-                    PoweringSTEM
+                ETH_FOR_ALL
                 </a>
                 <button
                     className="hamburger"
