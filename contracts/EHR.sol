@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
-import "../node_modules/hardhat/console.sol";
+import "hardhat/console.sol";
 // import "hardhat/console.sol";
 
 contract EHR {
@@ -504,7 +504,7 @@ contract EHR {
         return researchOrgMapping[researchOrgAddressMapping[orgAddress]];
     }
 
-    function fetchResearchById(
+    function fetchResearchById( 
         uint256 id
     ) public view returns (Research memory) {
         return researchMapping[id];
