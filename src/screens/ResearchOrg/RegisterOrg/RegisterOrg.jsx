@@ -45,7 +45,7 @@ const RegisterOrg = ({ modalIsOpen, closeModal }) => {
     >
       <div className="min-h-full flex flex-col justify-center py-6 sm:px-6 lg:px-8">
         <div className="text-center text-2xl font-bold">
-          Register as a Hospital
+          Register as a Research Org
         </div>
         <div className="mt-4 sm:w-full sm:max-w-2xl">
           <div className="bg-white py-4 px-4 sm:rounded-lg sm:px-10">

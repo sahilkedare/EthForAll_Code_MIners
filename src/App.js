@@ -14,13 +14,13 @@ import {
 	UserRecordByAdd,
 } from "./screens/Hospital";
 
-// import {
-// 	ResearchOrgDashboard,
-// 	ResearchOrgProfile,
-// 	NewResearch,
-// 	OrgResearch,
-// 	OrgResearchs,
-// } from "./screens/ResearchOrg";
+import {
+	ResearchOrgDashboard,
+	ResearchOrgProfile,
+	NewResearch,
+	OrgResearch,
+	OrgResearchs,
+} from "./screens/ResearchOrg";
 
 import {
 	Dashboard,
@@ -38,22 +38,22 @@ const App = () => {
 			path: "/",
 			element: <HomeScreen />,
 		},
-		// {
-		// 	path: "/org/profile",
-		// 	element: <ResearchOrgProfile />,
-		// },
-		// {
-		// 	path: "/org/researchs/:researchId",
-		// 	element: <OrgResearch />,
-		// },
-		// {
-		// 	path: "createNewResearch",
-		// 	element: <NewResearch />,
-		// },
-		// {
-		// 	path: "/org/researchs",
-		// 	element: <OrgResearchs />,
-		// },
+		{
+			path: "/org/profile",
+			element: <ResearchOrgProfile />,
+		},
+		{
+			path: "/org/researchs/:researchId",
+			element: <OrgResearch />,
+		},
+		{
+			path: "createNewResearch",
+			element: <NewResearch />,
+		},
+		{
+			path: "/org/researchs",
+			element: <OrgResearchs />,
+		},
 		{
 			path: "/hospital/profile",
 			element: <HospitalProfileScreen />,

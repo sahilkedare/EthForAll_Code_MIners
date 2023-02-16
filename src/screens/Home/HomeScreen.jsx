@@ -37,7 +37,7 @@ const HomeScreen = () => {
 				>
 					<Container maxWidth="sm">
 						<Typography variant="body">
-							Dr. DeAid 2023 &#169; - All Rights Reserved.
+							{/* Dr. DeAid 2023 &#169; - All Rights Reserved. */}
 						</Typography>
 					</Container>
 				</Box>
@@ -77,7 +77,7 @@ const HomeScreen = () => {
 				<h1>Reorganizing Healthcare</h1>
 				<p>
 					<strong style={{ color: "#753bd9", fontSize: "20px" }}>
-						Dr. DeAid
+						{/* Dr. DeAid */}
 					</strong>{" "}
 					is designed to bring out a healthcare revolution by
 					providing platform for people, Doctors, Hospitals, Medtech,
@@ -99,7 +99,7 @@ const HomeScreen = () => {
 					>
 						Key Features
 					</button>
-					<h3>what is Dr. DeAid ?</h3>
+					{/* <h3>what is Dr. DeAid ?</h3> */}
 					<p>
 						Our application provides a central repository of data
 						comprising all the tests and other medical processes a
