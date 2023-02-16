@@ -42,6 +42,14 @@ contract EHR {
         uint256 currentUsers;
     }
 
+    struct InsuranceComp {
+        // uint256 id;
+        address compAddr;
+        string name;
+        string emailId;
+        string contactNo;
+    }
+
     struct Record {
         address userAdd;
         address hosAdd;
@@ -52,29 +60,38 @@ contract EHR {
         string testSuggested;
     }
 
+
+
     uint256 userCount;
     uint256 hospitalCount;
     uint256 recordCount;
     uint256 researchOrgCount;
+    uint256 insuranceCompCount;
     uint256 researchCount;
 
     mapping(uint256 => User) userMapping;
     mapping(uint256 => Hospital) hospitalMapping;
     mapping(uint256 => Record) recordMapping;
     mapping(uint256 => ResearchOrg) researchOrgMapping;
+    mapping(uint256 => InsuranceComp) insuranceCompMapping;
     mapping(uint256 => Research) researchMapping;
 
     mapping(address => uint256) userAddressMapping;
     mapping(address => uint256) hospitalAddressMapping;
     mapping(address => uint256) researchOrgAddressMapping;
+    mapping(address => uint256) insurenceCompAddressMapping;
 
     mapping(address => bool) existingUsers;
     mapping(address => bool) existingHospitals;
     mapping(address => bool) existingOrganizations;
+    mapping(address => bool) existingInsuranceComp;
 
     mapping(uint256 => uint256[]) userToHospitalAccessList;
 
     mapping(uint256 => uint256[]) userToResearchAccessList;
+
+    mapping(uint256 => uint256[]) userToInsuranceAccessList;
+
 
     modifier onlyOwner() {
         require(owner == msg.sender, "Not an owner");
@@ -138,6 +155,21 @@ contract EHR {
         researchOrgAddressMapping[msg.sender] = researchOrgCount - 1;
         existingOrganizations[msg.sender] = true;
     }
+    function registerInsuranceComp(
+        string memory name,
+        string memory emailId,
+        string memory mobileNo
+    ) public {
+        insuranceCompMapping[researchOrgCount++] = InsuranceComp(
+            msg.sender,
+            name,
+            emailId,
+            mobileNo
+        );
+        insuranceCompAddressMapping[msg.sender] = insuranceCompCount - 1;
+        insuranceCompCount += 1; //not present for other functions ** check **
+        existingOrganizations[msg.sender] = true;
+    }
 
     function checkRole() public view returns (uint256) {
         if (existingUsers[msg.sender] == true) {
@@ -146,6 +178,8 @@ contract EHR {
             return 2;
         } else if (existingOrganizations[msg.sender] == true) {
             return 3;
+        } else if (existingInsuranceComp[msg.sender] == true){
+            return 4;
         }
         return 0;
     }
@@ -251,6 +285,17 @@ contract EHR {
         ) {
             payable(msg.sender).transfer(0.0001 ether);
         }
+    }
+    function grantAccessToInsurance(address insuranceCompAddress) public payable {
+        // uint256 id = insuranceCompMapping[insuranceCompAddress];
+        // uint256 userId = userAddressMapping[msg.sender];
+        // for (uint256 i = 0; i < userToHospitalAccessList[userId].length; i++) {
+        //     if (userToHospitalAccessList[userId][i] == id) {
+        //         return;
+        //     }
+        // }
+
+        // userToHospitalAccessList[userId].push(id);
     }
 
     function removeAccessFromResearch(uint256 researchId) public payable {
