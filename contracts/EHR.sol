@@ -79,7 +79,7 @@ contract EHR {
     mapping(address => uint256) userAddressMapping;
     mapping(address => uint256) hospitalAddressMapping;
     mapping(address => uint256) researchOrgAddressMapping;
-    mapping(address => uint256) insurenceCompAddressMapping;
+    mapping(address => uint256) insuranceCompAddressMapping;
 
     mapping(address => bool) existingUsers;
     mapping(address => bool) existingHospitals;
@@ -90,7 +90,7 @@ contract EHR {
 
     mapping(uint256 => uint256[]) userToResearchAccessList;
 
-    mapping(uint256 => uint256[]) userToInsuranceAccessList;
+    mapping(uint256 => uint256[]) userToInsuranceCompAccessList;
 
 
     modifier onlyOwner() {
@@ -160,14 +160,13 @@ contract EHR {
         string memory emailId,
         string memory mobileNo
     ) public {
-        insuranceCompMapping[researchOrgCount++] = InsuranceComp(
+        insuranceCompMapping[insuranceCompCount++] = InsuranceComp(
             msg.sender,
             name,
             emailId,
             mobileNo
         );
         insuranceCompAddressMapping[msg.sender] = insuranceCompCount - 1;
-        insuranceCompCount += 1; //not present for other functions ** check **
         existingOrganizations[msg.sender] = true;
     }
 
@@ -286,17 +285,7 @@ contract EHR {
             payable(msg.sender).transfer(0.0001 ether);
         }
     }
-    function grantAccessToInsurance(address insuranceCompAddress) public payable {
-        // uint256 id = insuranceCompMapping[insuranceCompAddress];
-        // uint256 userId = userAddressMapping[msg.sender];
-        // for (uint256 i = 0; i < userToHospitalAccessList[userId].length; i++) {
-        //     if (userToHospitalAccessList[userId][i] == id) {
-        //         return;
-        //     }
-        // }
 
-        // userToHospitalAccessList[userId].push(id);
-    }
 
     function removeAccessFromResearch(uint256 researchId) public payable {
         require(msg.value == 0.0001 ether);
@@ -328,6 +317,45 @@ contract EHR {
         return false;
     }
 
+    // Access List for insurance Company
+    function grantAccessToInsuranceComp(address insuranceCompAddress) public payable {
+        uint256 id = insuranceCompAddressMapping[insuranceCompAddress];
+        uint256 userId = userAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == id) {
+                return;
+            }
+        }
+
+        userToInsuranceCompAccessList[userId].push(id);
+    }
+    function removeAccessFromInsuranceComp(address insuranceCompAddress) public {
+        uint256 id = insuranceCompAddressMapping[insuranceCompAddress];
+        uint256 userId = userAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == id) {
+                userToInsuranceCompAccessList[userId][i] = userToInsuranceCompAccessList[
+                    userId
+                ][userToInsuranceCompAccessList[userId].length - 1];
+                userToInsuranceCompAccessList[userId].pop();
+            }
+        }
+    }
+
+    function hasUserRecordAccessForInsuranceComp(
+        address userAddress,
+        address insuranceCompAddress
+    ) public view returns (bool) {
+        uint256 userId = userAddressMapping[userAddress];
+        uint256 inCompId = insuranceCompAddressMapping[insuranceCompAddress];
+
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == inCompId) {
+                return true;
+            }
+        }
+        return false;
+    }
     // User Functions
     function fetchAllHospitals() public view returns (Hospital[] memory) {
         Hospital[] memory items = new Hospital[](hospitalCount);
@@ -547,6 +575,11 @@ contract EHR {
         address orgAddress
     ) public view returns (ResearchOrg memory) {
         return researchOrgMapping[researchOrgAddressMapping[orgAddress]];
+    }
+    function fetchInsuranceCompByAddress(
+        address insuranceCompAddress
+    ) public view returns (InsuranceComp memory) {
+        return insuranceCompMapping[insuranceCompAddressMapping[insuranceCompAddress]];
     }
 
     function fetchResearchById( 

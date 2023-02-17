@@ -107,6 +107,15 @@ export const EHRProvider = ({ children }) => {
 			console.log(err);
 		}
 	};
+	const registerInsuranceComp = async (name, emailId, mobileNo) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			await contract.registerInsuranceComp(name, emailId, mobileNo);
+			console.log("Registered!");
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const createNewRecord = async (
 		userAdd,
@@ -257,6 +266,15 @@ export const EHRProvider = ({ children }) => {
 		const contract = await connectingWithSmartContract();
 		try {
 			const data = await contract.fetchOrganizationByAddress(address);
+			return data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const fetchInsurancecompByAddress = async (address) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			const data = await contract.fetchInsuranceCompByAddress(address);
 			return data;
 		} catch (err) {
 			console.log(err);
@@ -476,6 +494,7 @@ export const EHRProvider = ({ children }) => {
 				currentAccount,
 				registerHospital,
 				registerUser,
+				registerInsuranceComp,
 
 				registerOrganization,
 				fetchAllHospitals,
@@ -500,6 +519,7 @@ export const EHRProvider = ({ children }) => {
 				fetchResearchById,
 				fetchHospitalByAddress,
 				fetchResearchOrgByAddress,
+				fetchInsurancecompByAddress,
 				hasUserRecordAccessForHospital,
 				hasUserRecordAccessForResearch,
 				fetchAllResearchs,
