@@ -42,6 +42,14 @@ contract EHR {
         uint256 currentUsers;
     }
 
+    struct InsuranceComp {
+        // uint256 id;
+        address compAddr;
+        string name;
+        string emailId;
+        string contactNo;
+    }
+
     struct Record {
         address userAdd;
         address hosAdd;
@@ -52,29 +60,38 @@ contract EHR {
         string testSuggested;
     }
 
+
+
     uint256 userCount;
     uint256 hospitalCount;
     uint256 recordCount;
     uint256 researchOrgCount;
+    uint256 insuranceCompCount;
     uint256 researchCount;
 
     mapping(uint256 => User) userMapping;
     mapping(uint256 => Hospital) hospitalMapping;
     mapping(uint256 => Record) recordMapping;
     mapping(uint256 => ResearchOrg) researchOrgMapping;
+    mapping(uint256 => InsuranceComp) insuranceCompMapping;
     mapping(uint256 => Research) researchMapping;
 
     mapping(address => uint256) userAddressMapping;
     mapping(address => uint256) hospitalAddressMapping;
     mapping(address => uint256) researchOrgAddressMapping;
+    mapping(address => uint256) insuranceCompAddressMapping;
 
     mapping(address => bool) existingUsers;
     mapping(address => bool) existingHospitals;
     mapping(address => bool) existingOrganizations;
+    mapping(address => bool) existingInsuranceComp;
 
     mapping(uint256 => uint256[]) userToHospitalAccessList;
 
     mapping(uint256 => uint256[]) userToResearchAccessList;
+
+    mapping(uint256 => uint256[]) userToInsuranceCompAccessList;
+
 
     modifier onlyOwner() {
         require(owner == msg.sender, "Not an owner");
@@ -138,6 +155,20 @@ contract EHR {
         researchOrgAddressMapping[msg.sender] = researchOrgCount - 1;
         existingOrganizations[msg.sender] = true;
     }
+    function registerInsuranceComp(
+        string memory name,
+        string memory emailId,
+        string memory mobileNo
+    ) public {
+        insuranceCompMapping[insuranceCompCount++] = InsuranceComp(
+            msg.sender,
+            name,
+            emailId,
+            mobileNo
+        );
+        insuranceCompAddressMapping[msg.sender] = insuranceCompCount - 1;
+        existingInsuranceComp[msg.sender] = true;
+    }
 
     function checkRole() public view returns (uint256) {
         if (existingUsers[msg.sender] == true) {
@@ -146,6 +177,8 @@ contract EHR {
             return 2;
         } else if (existingOrganizations[msg.sender] == true) {
             return 3;
+        } else if (existingInsuranceComp[msg.sender] == true){
+            return 4;
         }
         return 0;
     }
@@ -253,6 +286,7 @@ contract EHR {
         }
     }
 
+
     function removeAccessFromResearch(uint256 researchId) public payable {
         require(msg.value == 0.0001 ether);
         uint256 userId = userAddressMapping[msg.sender];
@@ -283,11 +317,59 @@ contract EHR {
         return false;
     }
 
+    // Access List for insurance Company
+    function grantAccessToInsuranceComp(address insuranceCompAddress) public payable {
+        uint256 id = insuranceCompAddressMapping[insuranceCompAddress];
+        uint256 userId = userAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == id) {
+                return;
+            }
+        }
+
+        userToInsuranceCompAccessList[userId].push(id);
+    }
+    function removeAccessFromInsuranceComp(address insuranceCompAddress) public {
+        uint256 id = insuranceCompAddressMapping[insuranceCompAddress];
+        uint256 userId = userAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == id) {
+                userToInsuranceCompAccessList[userId][i] = userToInsuranceCompAccessList[
+                    userId
+                ][userToInsuranceCompAccessList[userId].length - 1];
+                userToInsuranceCompAccessList[userId].pop();
+            }
+        }
+    }
+
+    function hasUserRecordAccessForInsuranceComp(
+        address userAddress,
+        address insuranceCompAddress
+    ) public view returns (bool) {
+        uint256 userId = userAddressMapping[userAddress];
+        uint256 inCompId = insuranceCompAddressMapping[insuranceCompAddress];
+
+        for (uint256 i = 0; i < userToInsuranceCompAccessList[userId].length; i++) {
+            if (userToInsuranceCompAccessList[userId][i] == inCompId) {
+                return true;
+            }
+        }
+        return false;
+    }
     // User Functions
     function fetchAllHospitals() public view returns (Hospital[] memory) {
         Hospital[] memory items = new Hospital[](hospitalCount);
         for (uint256 i = 0; i < hospitalCount; i++) {
             Hospital storage currentItem = hospitalMapping[i];
+            items[i] = currentItem;
+        }
+        return items;
+    }
+
+    function fetchAllInsuranceComps() public view returns (InsuranceComp[] memory) {
+        InsuranceComp[] memory items = new InsuranceComp[](insuranceCompCount);
+        for (uint256 i = 0; i < insuranceCompCount; i++) {
+            InsuranceComp storage currentItem = insuranceCompMapping[i];
             items[i] = currentItem;
         }
         return items;
@@ -361,7 +443,7 @@ contract EHR {
     ) public view returns (Record[] memory) {
         require(
             hasUserRecordAccessForHospital(userAddress, msg.sender) == true,
-            "Does not has the access to fetch the documents"
+            "Does not have the access to fetch the documents"
         );
 
         uint256 itemCount;
@@ -503,6 +585,11 @@ contract EHR {
     ) public view returns (ResearchOrg memory) {
         return researchOrgMapping[researchOrgAddressMapping[orgAddress]];
     }
+    function fetchInsuranceCompByAddress(
+        address insuranceCompAddress
+    ) public view returns (InsuranceComp memory) {
+        return insuranceCompMapping[insuranceCompAddressMapping[insuranceCompAddress]];
+    }
 
     function fetchResearchById( 
         uint256 id
@@ -518,4 +605,64 @@ contract EHR {
         }
         return items;
     }
+
+    // functions used by insurance company
+    function fetchAllUsersOfInsuranceComp(
+    ) public view returns (User[] memory) {
+        uint256 count;
+        uint256 compId = insuranceCompAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userCount; i++) {
+            for (uint256 j = 0; j < userToInsuranceCompAccessList[i].length; j++) {
+                if (userToInsuranceCompAccessList[i][j] == compId) {
+                    count += 1;
+                    break;
+                }
+            }
+        }
+
+        User[] memory result = new User[](count);
+
+        count = 0;
+
+        for (uint256 i = 0; i < userCount; i++) {
+            for (uint256 j = 0; j < userToInsuranceCompAccessList[i].length; j++) {
+                if (userToInsuranceCompAccessList[i][j] == compId) {
+                    User storage currentUser = userMapping[i];
+                    result[count] = currentUser;
+                    count += 1;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function fetchUserDocumentsForInsuranceComp(
+        address userAddress
+    ) public view returns (Record[] memory) {
+        require(
+            hasUserRecordAccessForInsuranceComp(userAddress, msg.sender) == true,
+            "Does not have the access to fetch the documents"
+        );
+
+        uint256 itemCount;
+        for (uint256 i = 0; i < recordCount; i++) {
+            if (recordMapping[i].userAdd == userAddress) {
+                itemCount += 1;
+            }
+        }
+
+        Record[] memory items = new Record[](itemCount);
+        for (uint256 i = 0; i < recordCount; i++) {
+            if (recordMapping[i].userAdd == userAddress) {
+                uint256 currentId = i;
+                Record storage currentItem = recordMapping[currentId];
+                items[currentId] = currentItem;
+                currentId += 1;
+            }
+        }
+        return items;
+    }
+
 }

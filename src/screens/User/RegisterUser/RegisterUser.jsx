@@ -5,6 +5,8 @@ import { EHRContext } from "../../../Context/EHRContext";
 
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PublicIcon from "@mui/icons-material/Public";
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import BiotechIcon from '@mui/icons-material/Biotech';
 
 const RegisterUser = ({ modalIsOpen, closeModal }) => {
 	const { registerUser } = useContext(EHRContext);
@@ -219,7 +221,7 @@ const RegisterUser = ({ modalIsOpen, closeModal }) => {
 									</span>
 								</div>
 							</div>
-							<div className="mt-6 grid grid-cols-2 gap-3">
+							<div className="mt-6 grid grid-cols-3 gap-3">
 								<div>
 									<a
 										href="/org/profile"
@@ -227,18 +229,29 @@ const RegisterUser = ({ modalIsOpen, closeModal }) => {
 									>
 										<PublicIcon />{" "}
 										<span className="px-1 text-base">
-											Orgnization
+											Organization
 										</span>
 									</a>
 								</div>
 								<div>
 									<a
 										href="/hospital/profile"
-										className="w-full inline-flex justify-center py-2 px-4 border border-green-300 rounded-md shadow-sm bg-white text-sm font-medium text-green-500 hover:bg-green-50"
+										className="w-full inline-flex justify-center py-2 px-2 border border-green-300 rounded-md shadow-sm bg-white text-sm font-medium text-green-500 hover:bg-green-50"
 									>
 										<LocalHospitalIcon />{" "}
 										<span className="px-1 text-base">
 											Hospital
+										</span>
+									</a>
+								</div>
+								<div>
+									<a
+										href="/insuranceComp/profile"
+										className="w-full inline-flex justify-center py-2 px-4 border border-blue-300 rounded-md shadow-sm bg-white text-sm font-medium text-blue-500 hover:bg-blue-50"
+									>
+										<HealthAndSafetyIcon />{" "}
+										<span className="px-1 text-base">
+											Insurance
 										</span>
 									</a>
 								</div>

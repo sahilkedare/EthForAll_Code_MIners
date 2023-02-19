@@ -52,6 +52,7 @@ export const EHRProvider = ({ children }) => {
 				method: "eth_requestAccounts",
 			});
 			setCurrentAccount(accounts[0]);
+			console.log(currentAccount);
 
 			window.location.reload();
 		} catch (error) {
@@ -102,6 +103,15 @@ export const EHRProvider = ({ children }) => {
 		const contract = await connectingWithSmartContract();
 		try {
 			await contract.registerResearchOrg(name, emailId, mobileNo);
+			console.log("Registered!");
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const registerInsuranceComp = async (name, emailId, mobileNo) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			await contract.registerInsuranceComp(name, emailId, mobileNo);
 			console.log("Registered!");
 		} catch (err) {
 			console.log(err);
@@ -169,11 +179,29 @@ export const EHRProvider = ({ children }) => {
 			console.log(err);
 		}
 	};
+	const grantAccessToInsuranceComp = async (hospitalAddress) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			await contract.grantAccessToInsuranceComp(hospitalAddress);
+			console.log("Granted!");
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const removeAccessFromHospital = async (hospitalAddress) => {
 		const contract = await connectingWithSmartContract();
 		try {
 			await contract.removeAccessFromHospital(hospitalAddress);
+			console.log("Removed!");
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const removeAccessFromInsuranceComp = async (hospitalAddress) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			await contract.removeAccessFromInsuranceComp(hospitalAddress);
 			console.log("Removed!");
 		} catch (err) {
 			console.log(err);
@@ -233,6 +261,34 @@ export const EHRProvider = ({ children }) => {
 		}
 	};
 
+	const fetchAllInsuranceComps = async (account) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			var data = await contract.fetchAllInsuranceComps();
+			var result = [];
+
+			for (let i = 0; i < data.length; i++) {
+				const access = await hasUserRecordAccessForInsuranceComp(
+					account,
+					data[i].compAddr
+				);
+
+				result.push({
+					name: data[i].name,
+					emailId: data[i].emailId,
+					contactNo: data[i].contactNo,
+					compAdd: data[i].compAddr,
+					personalAdd: data[i].personalAdd,
+					access: access,
+				});
+				// data[i] = { ...data[i], access: access };
+			}
+			return result;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const fetchResearchById = async (id) => {
 		const contract = await connectingWithSmartContract();
 		try {
@@ -257,6 +313,16 @@ export const EHRProvider = ({ children }) => {
 		const contract = await connectingWithSmartContract();
 		try {
 			const data = await contract.fetchOrganizationByAddress(address);
+			return data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	const fetchInsuranceCompByAddress = async (address) => {
+		console.log("calling mt");
+		const contract = await connectingWithSmartContract();
+		try {
+			const data = await contract.fetchInsuranceCompByAddress(address);
 			return data;
 		} catch (err) {
 			console.log(err);
@@ -379,6 +445,21 @@ export const EHRProvider = ({ children }) => {
 			console.log(err);
 		}
 	};
+	const hasUserRecordAccessForInsuranceComp = async (
+		userAddress,
+		hospitalAddress
+	) => {
+		const contract = await connectingWithSmartContract();
+		try {
+			const access = await contract.hasUserRecordAccessForInsuranceComp(
+				userAddress,
+				hospitalAddress
+			);
+			return access;
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const fetchAllUserDocForResearch = async (id) => {
 		try {
@@ -476,7 +557,6 @@ export const EHRProvider = ({ children }) => {
 				currentAccount,
 				registerHospital,
 				registerUser,
-
 				registerOrganization,
 				fetchAllHospitals,
 				//users
@@ -495,6 +575,13 @@ export const EHRProvider = ({ children }) => {
 				fetchUserDocumentsForHospital,
 				fetchUserByAddress,
 				getAllHospitalRecords,
+				//insurance
+				registerInsuranceComp,
+				fetchAllInsuranceComps,
+				grantAccessToInsuranceComp,
+				hasUserRecordAccessForInsuranceComp,
+				fetchInsuranceCompByAddress,
+				
 				//record
 				createNewResearch,
 				fetchResearchById,

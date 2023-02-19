@@ -7,7 +7,7 @@ import RegistrationScreen from "./screens/RegistrationScreen";
 import FetchMyDocuments from "./screens/FetchMyDocuments";
 
 import {
-	HospitalDashboard,
+	// HospitalDashboard,
 	NewRecord,
 	HospitalPastRecords,
 	HospitalProfileScreen,
@@ -15,20 +15,28 @@ import {
 } from "./screens/Hospital";
 
 import {
-	ResearchOrgDashboard,
+	// ResearchOrgDashboard,
 	ResearchOrgProfile,
 	NewResearch,
 	OrgResearch,
 	OrgResearchs,
 } from "./screens/ResearchOrg";
+import {
+	// ResearchOrgDashboard,
+	InsuranceCompProfile,
+	// NewResearch,
+	// OrgResearch,
+	// OrgResearchs,
+} from "./screens/InsuranceComp";
 
 import {
-	Dashboard,
+	// Dashboard,
 	Hospitals,
 	PastHistory,
 	ProfileScreen,
 	Research,
 	Researchs,
+	InsuranceComps
 } from "./screens/User";
 import { ToastContainer } from "react-toastify";
 
@@ -37,6 +45,10 @@ const App = () => {
 		{
 			path: "/",
 			element: <HomeScreen />,
+		},
+		{
+			path: "/insuranceComp/profile",
+			element: <InsuranceCompProfile />,
 		},
 		{
 			path: "/org/profile",
@@ -66,6 +78,10 @@ const App = () => {
 		{
 			path: "/user/hospitals",
 			element: <Hospitals />,
+		},
+		{
+			path: "/user/insuranceComps",
+			element: <InsuranceComps/>,
 		},
 		{
 			path: "/user/researchs",

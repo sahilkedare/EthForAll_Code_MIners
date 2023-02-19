@@ -12,6 +12,11 @@ export const userSidebar = [
 		icon: <LocalHospitalIcon className={styles.listIcon} />,
 	},
 	{
+		name: "Insurance Comps",
+		url: "/user/insuranceComps",
+		icon: <LocalHospitalIcon className={styles.listIcon} />,
+	},
+	{
 		name: "Past History",
 		url: "/user/history",
 		icon: <HistoryEduIcon className={styles.listIcon} />,
