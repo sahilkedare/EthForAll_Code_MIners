@@ -8,7 +8,7 @@ const RSidebar = ({ value }) => {
 		<div className={styles.sidebar_wrapper}>
 			<Link to="/">
 				<div className={styles.logoDiv}>
-					<svg
+					{/* <svg
 						width="95%"
 						// height="93"
 						viewBox="0 0 407 93"
@@ -55,7 +55,10 @@ const RSidebar = ({ value }) => {
 							d="M362 53C362 66.6 362.6 70 365 70C367.4 70 368 66.6 368 53C368 39.4 367.4 36 365 36C362.6 36 362 39.4 362 53Z"
 							fill="white"
 						/>
-					</svg>
+					</svg> */}
+					<a  style={{ color: "#fff", fontSize: "24px",fontWeight:"500" }} href="/" className="brand-name">
+					MediCare
+				</a>
 				</div>
 			</Link>
 			<hr className="bg-gray-200 border-0" />

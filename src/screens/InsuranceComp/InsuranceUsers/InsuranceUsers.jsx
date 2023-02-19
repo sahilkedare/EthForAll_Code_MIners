@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../../../components/Sidebar/Sidebar";
 import { EHRContext } from "../../../Context/EHRContext";
-import RegisterUser from "../RegisterUser/RegisterUser";
-import styles from "./PastHistory.module.css";
+import styles from "../Profile/Profile.module.css";
+import RegisterInsuraceComp from "../RegisterInsuranceComp/RegisterInsuranceComp";
+import InsuranceCompSidebar from "../../../components/InsuranceCompSidebar/InsuranceCompSidebar";
+
 
 const InsuranceUsers = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
@@ -13,6 +14,7 @@ const InsuranceUsers = () => {
 		fetchMyDocuments,
 		checkIfWalletConnected,
 		checkRole,
+		fetchInsuranceCompByAddress,
 		hasUserRecordAccessForInsuranceComp,
 		
 	} = useContext(EHRContext);
@@ -85,13 +87,13 @@ const InsuranceUsers = () => {
 
 	return (
 		<div className={styles.hospitals_wrapper}>
-			<RegisterUser closeModal={closeModal} modalIsOpen={modalIsOpen} />
-			<Sidebar value="Past History" />
+			<RegisterInsuraceComp closeModal={closeModal} modalIsOpen={modalIsOpen} />
+			<InsuranceCompSidebar value="Users" />
 			<div className={styles.main_wrapper}>
 				<div className={styles.navBar}>
 					<h3 className={styles.user}>Welcome {user.name}!</h3>
 				</div>
-				<div className={styles.content}>
+				{/* <div className={styles.content}>
 					<div className={styles.hospitals_search}>
 						<input
 							className={`px-5 py-2 sm:rounded-md font-medium bg-gray-100 placeholder-gray-500 text-sm border focus:outline-none focus:border-gray-400 focus:bg-white`}
@@ -176,7 +178,7 @@ const InsuranceUsers = () => {
 								})}
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

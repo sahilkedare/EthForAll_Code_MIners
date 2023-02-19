@@ -247,7 +247,7 @@ const RegisterUser = ({ modalIsOpen, closeModal }) => {
 								<div>
 									<a
 										href="/insuranceComp/profile"
-										className="w-full inline-flex justify-center py-2 px-4 border border-blue-300 rounded-md shadow-sm bg-white text-sm font-medium text-blue-500 hover:bg-blue-50"
+										className="w-full inline-flex justify-center py-2 px-4 border border-pink-300 rounded-md shadow-sm bg-white text-sm font-medium text-pink-500 hover:bg-pink-50"
 									>
 										<HealthAndSafetyIcon />{" "}
 										<span className="px-1 text-base">

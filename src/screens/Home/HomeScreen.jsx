@@ -4,6 +4,7 @@ import styles from "./HomeScreen.module.css";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonIcon from "@mui/icons-material/Person";
 import PublicIcon from "@mui/icons-material/Public";
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 
 const HospitalD = [
 	"● Create new record for patient",
@@ -16,6 +17,8 @@ const UserD = [
 	"● Access past medical records",
 ];
 const OrgD = ["● Create new Researches", "● Access patient data"];
+const InsuranceD = ["● Access past medical record", "● Give Timely Aid"];
+
 
 const HomeScreen = () => {
 	const Footer = () => {
@@ -37,7 +40,7 @@ const HomeScreen = () => {
 				>
 					<Container maxWidth="sm">
 						<Typography variant="body">
-							{/* Dr. DeAid 2023 &#169; - All Rights Reserved. */}
+							MediCare 2023 &#169; - All Rights Reserved.
 						</Typography>
 					</Container>
 				</Box>
@@ -77,14 +80,11 @@ const HomeScreen = () => {
 				<h1>Reorganizing Healthcare</h1>
 				<p>
 					<strong style={{ color: "#753bd9", fontSize: "20px" }}>
-						{/* Dr. DeAid */}
+						MediCare
 					</strong>{" "}
-					is designed to bring out a healthcare revolution by
-					providing platform for people, Doctors, Hospitals, Medtech,
-					Healthtech Orgnizations where all the medical data can be
-					stored and accesed and used for the patients benefit as and
-					when required but maintaining the privacy of the patient and
-					ill use of their data.
+					is intended to usher in a healthcare revolution by providing a platform for people, Doctors, Hospitals,
+					 Medtech, and Healthtech Organizations where all medical data can be stored, accessed, and used for the 
+					 patients' benefit as and when needed while protecting the patient's privacy and preventing unauthorised use of their data.
 				</p>
 				<CustomButton text="get started now" />
 			</section>
@@ -99,17 +99,14 @@ const HomeScreen = () => {
 					>
 						Key Features
 					</button>
-					{/* <h3>what is Dr. DeAid ?</h3> */}
+					<h3>What is MediCare ?</h3>
 					<p>
-						Our application provides a central repository of data
-						comprising all the tests and other medical processes a
-						patient went through, it reduces the scope of
-						duplication of the same processes and thus prevents
-						delay in the treatment. This data of patients can be
-						used by hospitals to provide blood and other medical
-						services to needy patients. patients have the power to
-						provide their data to research organization so that they
-						can research and develop solutions to medical problems.
+					Our application provides a central repository of data containing 
+					all of the tests and other medical processes that a patient has gone through,
+					 reducing the possibility of duplication of the same processes and thus preventing 
+					 treatment delays. Hospitals can use this patient data to provide blood and other 
+					 medical services to indigent patients. Patients have the ability to provide data to 
+					 research organisations in order for them to research and develop solutions to medical problems.
 					</p>
 					<div className={`${styles.row} ${styles.features__flex}`}>
 						<FeatureCard
@@ -139,6 +136,16 @@ const HomeScreen = () => {
 								/>
 							}
 							name="Orgnization"
+							text={OrgD}
+							url="/org/profile"
+						/>
+						<FeatureCard
+							icon={
+								<HealthAndSafetyIcon
+									sx={{ color: "#753bd9", fontSize: "80px" }}
+								/>
+							}
+							name="Insurance"
 							text={OrgD}
 							url="/org/profile"
 						/>

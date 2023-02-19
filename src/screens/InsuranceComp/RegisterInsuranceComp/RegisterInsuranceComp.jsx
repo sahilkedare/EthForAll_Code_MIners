@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { EHRContext } from "../../../Context/EHRContext";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonIcon from "@mui/icons-material/Person";
+import PublicIcon from "@mui/icons-material/Public";
 
 const RegisterInsuraceComp = ({ modalIsOpen, closeModal }) => {
   const { registerInsuranceComp } = useContext(EHRContext);
@@ -125,7 +126,7 @@ const RegisterInsuraceComp = ({ modalIsOpen, closeModal }) => {
                   </span>
                 </div>
               </div>
-              <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="mt-6 grid grid-cols-3 gap-3">
                 <div>
                   <a
                     href="/hospital/profile"
@@ -143,6 +144,17 @@ const RegisterInsuraceComp = ({ modalIsOpen, closeModal }) => {
                     <PersonIcon /> <span className="px-1 text-base">User</span>
                   </a>
                 </div>
+                <div>
+									<a
+										href="/org/profile"
+										className="w-full inline-flex justify-center py-2 px-4 border border-red-300 rounded-md shadow-sm bg-white text-sm font-medium text-red-500 hover:bg-red-50"
+									>
+										<PublicIcon />{" "}
+										<span className="px-1 text-base">
+											Organization
+										</span>
+									</a>
+								</div>
               </div>
             </div>
           </div>

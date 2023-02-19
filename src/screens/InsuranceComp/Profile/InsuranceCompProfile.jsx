@@ -1,10 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
-
 import InsuranceCompSidebar from "../../../components/InsuranceCompSidebar/InsuranceCompSidebar";
-
 import { EHRContext } from "../../../Context/EHRContext";
-import { useNavigate } from "react-router-dom";	
+import { useNavigate } from "react-router-dom";
 import RegisterInsuraceComp from "../RegisterInsuranceComp/RegisterInsuranceComp";
 
 const InsuranceCompProfile = () => {
@@ -43,9 +41,9 @@ const InsuranceCompProfile = () => {
 			navigate("/user/profile");
 		} else if (data === 2) {
 			navigate("/hospital/profile");
-		} else if(data === 3){
+		} else if (data === 3) {
 			navigate("/org/profile");
-		} 
+		}
 		else {
 			console.log("current account");
 			console.log(account);
@@ -62,7 +60,7 @@ const InsuranceCompProfile = () => {
 
 	useEffect(() => {
 		fetchUser(currentAccount);
-		console.log("ca",currentAccount);
+		console.log("ca", currentAccount);
 	}, [currentAccount]);
 
 	const userInfo = {
@@ -96,9 +94,10 @@ const InsuranceCompProfile = () => {
 									<h4 className={styles.title}>
 										{key.toLocaleUpperCase()}{" "}
 									</h4>
-									<p>:</p>
+									<p style={{marginTop: "9px"}}>:</p>
 									<p className={styles.text}>{user[key]}</p>
 								</div>
+
 								<hr className={styles.horizontal} />
 							</div>
 						))}

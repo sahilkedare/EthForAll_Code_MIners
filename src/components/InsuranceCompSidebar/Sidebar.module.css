@@ -3,6 +3,7 @@
 	--white: #fff;
 	--black: #000;
 	--lightPink: #f09bad;
+	--darkpink: #EC4899;
 }
 
 .sidebar_wrapper {
@@ -12,7 +13,7 @@
 	flex-direction: column;
 	padding: 20px 10px;
 	/* background-color: #003459; */
-	background-color: var(--pink);
+	background-color: var(--darkpink);
 	overflow: hidden;
 }
 
@@ -44,7 +45,7 @@
 
 .sidebarList li div:hover,
 .active {
-	background-color: #f09bad;
+	background-color: #eb71ae;
 	cursor: pointer;
 }
 

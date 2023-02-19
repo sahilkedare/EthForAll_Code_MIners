@@ -105,8 +105,8 @@
     justify-content: space-around;
     padding: 0.5em 0.8em;
     /* height: 4em; */
+    margin: 20px 100px;
     box-shadow: 1px 1px 10px lightgrey;
-    margin: 5px;
     width: 31%;
     border-radius: 10px;
 }

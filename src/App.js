@@ -24,7 +24,7 @@ import {
 import {
 	// ResearchOrgDashboard,
 	InsuranceCompProfile,
-	// NewResearch,
+	InsuranceUsers
 	// OrgResearch,
 	// OrgResearchs,
 } from "./screens/InsuranceComp";
@@ -49,6 +49,10 @@ const App = () => {
 		{
 			path: "/insuranceComp/profile",
 			element: <InsuranceCompProfile />,
+		},
+		{
+			path: "/insuranceComp/users",
+			element: <InsuranceUsers />,
 		},
 		{
 			path: "/org/profile",

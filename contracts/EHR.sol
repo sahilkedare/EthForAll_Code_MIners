@@ -513,6 +513,7 @@ contract EHR {
         }
         return items;
     }
+    
 
     function fetchAllUsersForResearch(
         uint256 researchId
