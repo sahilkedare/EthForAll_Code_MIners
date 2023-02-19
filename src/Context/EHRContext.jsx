@@ -557,16 +557,12 @@ export const EHRProvider = ({ children }) => {
 				currentAccount,
 				registerHospital,
 				registerUser,
-				registerInsuranceComp,
-
 				registerOrganization,
 				fetchAllHospitals,
-				fetchAllInsuranceComps,
 				//users
 				fetchMyDocuments,
 				grantAccessToHospital,
 				grantAccessToResearch,
-				grantAccessToInsuranceComp,
 				fetchMyHospitalAccessList,
 				fetchMyResearchAccessList,
 				fetchAllUsersForResearch,
@@ -579,15 +575,20 @@ export const EHRProvider = ({ children }) => {
 				fetchUserDocumentsForHospital,
 				fetchUserByAddress,
 				getAllHospitalRecords,
+				//insurance
+				registerInsuranceComp,
+				fetchAllInsuranceComps,
+				grantAccessToInsuranceComp,
+				hasUserRecordAccessForInsuranceComp,
+				fetchInsuranceCompByAddress,
+				
 				//record
 				createNewResearch,
 				fetchResearchById,
 				fetchHospitalByAddress,
 				fetchResearchOrgByAddress,
-				fetchInsuranceCompByAddress,
 				hasUserRecordAccessForHospital,
 				hasUserRecordAccessForResearch,
-				hasUserRecordAccessForInsuranceComp,
 				fetchAllResearchs,
 				uploadFilesToIPFS,
 			}}

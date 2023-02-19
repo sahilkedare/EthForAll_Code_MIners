@@ -20,6 +20,7 @@ const InsuranceComps = () => {
 
 	const fetchInsuranceComps = useCallback(async (account) => {
 		const hospits = await fetchAllInsuranceComps(account);
+		console.log(hospits,"ajdlkf")
 		setInsuranceComps(hospits);
 	});
 
@@ -102,7 +103,7 @@ const InsuranceComps = () => {
 					<h3 className={styles.user}>Welcome {user.name}!</h3>
 				</div>
 				<div className={styles.content}>
-					<div className={styles.insuranceComps_search}>
+					<div className={styles.hospitals_search}>
 						<input
 							className={`px-5 py-2 sm:rounded-md font-medium bg-gray-100 placeholder-gray-500 text-sm border focus:outline-none focus:border-gray-400 focus:bg-white`}
 							placeholder="Search by address"
@@ -116,8 +117,8 @@ const InsuranceComps = () => {
 							Search
 						</button>
 					</div>
-					<div className={styles.insuranceCompContainer}>
-						<div className={styles.insuranceCompsGrid}>
+					<div className={styles.hospitalContainer}>
+						<div className={styles.hospitalsGrid}>
 							{insuranceComps &&
 								insuranceComps.map((insuranceComp, id) => {
 									if (
