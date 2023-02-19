@@ -33,7 +33,8 @@ const InsuranceCompProfile = () => {
 	}, []);
 
 	const fetchUser = useCallback(async (account) => {
-		console.log("hello");
+
+		console.log("hello from comp profile");
 		const data = await checkRole(account);
 		console.log(data);
 		if (data === 0) {
@@ -42,10 +43,13 @@ const InsuranceCompProfile = () => {
 			navigate("/user/profile");
 		} else if (data === 2) {
 			navigate("/hospital/profile");
-		} else if(data == 3){
+		} else if(data === 3){
 			navigate("/org/profile");
 		} 
 		else {
+			console.log("current account");
+			console.log(account);
+			// console.log(fetchInsuranceCompByAddress);
 			const data = await fetchInsuranceCompByAddress(account);
 			setUser({
 				orgAdd: data.compAddr,
@@ -58,6 +62,7 @@ const InsuranceCompProfile = () => {
 
 	useEffect(() => {
 		fetchUser(currentAccount);
+		console.log("ca",currentAccount);
 	}, [currentAccount]);
 
 	const userInfo = {

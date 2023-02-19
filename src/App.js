@@ -36,6 +36,7 @@ import {
 	ProfileScreen,
 	Research,
 	Researchs,
+	InsuranceComps
 } from "./screens/User";
 import { ToastContainer } from "react-toastify";
 
@@ -77,6 +78,10 @@ const App = () => {
 		{
 			path: "/user/hospitals",
 			element: <Hospitals />,
+		},
+		{
+			path: "/user/insuranceComps",
+			element: <InsuranceComps/>,
 		},
 		{
 			path: "/user/researchs",

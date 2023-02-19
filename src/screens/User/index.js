@@ -4,6 +4,7 @@ import PastHistory from "./PastHistory/PastHistory";
 import ProfileScreen from "./Profiles/Profile";
 import Researchs from "./Researchs/Researchs";
 import Research from "./Research/Research";
+import InsuranceComps from "./InsuranceComps/InsuranceComps";
 
 export {
 	Dashboard,
@@ -12,4 +13,5 @@ export {
 	ProfileScreen,
 	Research,
 	Researchs,
+	InsuranceComps
 };

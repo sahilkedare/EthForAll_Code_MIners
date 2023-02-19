@@ -18,7 +18,7 @@ export const orgSidebar = [
 	// },
 	{
 		name: "Profile",
-		url: "/org/profile",
+		url: "/insuranceComp/profile",
 		icon: <Person2Icon className={styles.listIcon} />,
 	},
 ];

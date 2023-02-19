@@ -167,7 +167,7 @@ contract EHR {
             mobileNo
         );
         insuranceCompAddressMapping[msg.sender] = insuranceCompCount - 1;
-        existingOrganizations[msg.sender] = true;
+        existingInsuranceComp[msg.sender] = true;
     }
 
     function checkRole() public view returns (uint256) {
@@ -366,6 +366,15 @@ contract EHR {
         return items;
     }
 
+    function fetchAllInsuranceComps() public view returns (InsuranceComp[] memory) {
+        InsuranceComp[] memory items = new InsuranceComp[](insuranceCompCount);
+        for (uint256 i = 0; i < insuranceCompCount; i++) {
+            InsuranceComp storage currentItem = insuranceCompMapping[i];
+            items[i] = currentItem;
+        }
+        return items;
+    }
+
     function fetchMyHospitalAccessList()
         public
         view
@@ -434,7 +443,7 @@ contract EHR {
     ) public view returns (Record[] memory) {
         require(
             hasUserRecordAccessForHospital(userAddress, msg.sender) == true,
-            "Does not has the access to fetch the documents"
+            "Does not have the access to fetch the documents"
         );
 
         uint256 itemCount;
@@ -596,4 +605,64 @@ contract EHR {
         }
         return items;
     }
+
+    // functions used by insurance company
+    function fetchAllUsersOfInsuranceComp(
+    ) public view returns (User[] memory) {
+        uint256 count;
+        uint256 compId = insuranceCompAddressMapping[msg.sender];
+        for (uint256 i = 0; i < userCount; i++) {
+            for (uint256 j = 0; j < userToInsuranceCompAccessList[i].length; j++) {
+                if (userToInsuranceCompAccessList[i][j] == compId) {
+                    count += 1;
+                    break;
+                }
+            }
+        }
+
+        User[] memory result = new User[](count);
+
+        count = 0;
+
+        for (uint256 i = 0; i < userCount; i++) {
+            for (uint256 j = 0; j < userToInsuranceCompAccessList[i].length; j++) {
+                if (userToInsuranceCompAccessList[i][j] == compId) {
+                    User storage currentUser = userMapping[i];
+                    result[count] = currentUser;
+                    count += 1;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function fetchUserDocumentsForInsuranceComp(
+        address userAddress
+    ) public view returns (Record[] memory) {
+        require(
+            hasUserRecordAccessForInsuranceComp(userAddress, msg.sender) == true,
+            "Does not have the access to fetch the documents"
+        );
+
+        uint256 itemCount;
+        for (uint256 i = 0; i < recordCount; i++) {
+            if (recordMapping[i].userAdd == userAddress) {
+                itemCount += 1;
+            }
+        }
+
+        Record[] memory items = new Record[](itemCount);
+        for (uint256 i = 0; i < recordCount; i++) {
+            if (recordMapping[i].userAdd == userAddress) {
+                uint256 currentId = i;
+                Record storage currentItem = recordMapping[currentId];
+                items[currentId] = currentItem;
+                currentId += 1;
+            }
+        }
+        return items;
+    }
+
 }
