@@ -12,7 +12,7 @@ export const userSidebar = [
 		icon: <LocalHospitalIcon className={styles.listIcon} />,
 	},
 	{
-		name: "Insurance Comps",
+		name: "Insurance",
 		url: "/user/insuranceComps",
 		icon: <LocalHospitalIcon className={styles.listIcon} />,
 	},

@@ -88,7 +88,7 @@ const HomeScreen = () => {
 				</p>
 				<CustomButton text="get started now" />
 			</section>
-
+			
 			<section className={styles.features}>
 				<div className={`${styles.container}`}>
 					<button

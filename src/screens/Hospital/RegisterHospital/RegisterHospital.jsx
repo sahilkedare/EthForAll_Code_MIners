@@ -163,7 +163,7 @@ const RegisterHospital = ({ modalIsOpen, closeModal }) => {
 									>
 										<PublicIcon />{" "}
 										<span className="px-1 text-base">
-											Orgnization
+											Org
 										</span>
 									</a>
 								</div>

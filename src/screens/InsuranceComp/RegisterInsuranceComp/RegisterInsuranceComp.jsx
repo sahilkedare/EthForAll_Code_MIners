@@ -151,7 +151,7 @@ const RegisterInsuraceComp = ({ modalIsOpen, closeModal }) => {
 									>
 										<PublicIcon />{" "}
 										<span className="px-1 text-base">
-											Organization
+											Org
 										</span>
 									</a>
 								</div>

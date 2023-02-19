@@ -87,7 +87,7 @@ const ResearchOrgProfile = () => {
 									<h4 className={styles.title}>
 										{key.toLocaleUpperCase()}{" "}
 									</h4>
-									<p>:</p>
+									<p style={{marginTop: "8px"}}>:</p>
 									<p className={styles.text}>{user[key]}</p>
 								</div>
 								<hr className={styles.horizontal} />
